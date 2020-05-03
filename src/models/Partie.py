@@ -11,6 +11,8 @@ class Partie(db.Model):
     hdeb = db.Column(db.Integer())
     def get_id(self):
         return (self.idpartie)
+
+    # methode de creation de partie, elle utilise la procedure cree_partie
     @staticmethod
     def create_partie(user_id,niveau_id):
         connection = engine.raw_connection()
@@ -22,6 +24,7 @@ class Partie(db.Model):
         idpartie = idpartie.values[0]
         return int(idpartie)
 
+    # methode de mettre a jours les informations apres fin de partie elle appelle la procedurer partie_fini
     @staticmethod
     def end_partie(user_id,idpartie,score,etat):
         connection = engine.raw_connection()
@@ -34,6 +37,7 @@ class Partie(db.Model):
         connection.close()
         return new_score_joueur.values[0]
 
+    # cette methode permet d'appeller la procedure rejouer_partie mais elle n'est pas utilisee
     @staticmethod
     def revoir(idpartie):
         connection = engine.raw_connection()

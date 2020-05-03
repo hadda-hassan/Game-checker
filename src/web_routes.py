@@ -11,28 +11,33 @@ from src.models.Partie import Partie
 from flask_login import login_required,current_user
 import json
 
+# Charger les information d'un utilisateur dans la base de données à partir de son identifiant
 @login_manager.user_loader
 def load_user(id_user):
     return Joueur.query.get(int(id_user))
 
+# charger la template de index
 @main.route('/')
 @login_required
 def index():
     user = current_user
     return render_template('index.html',user=user)
 
+# charger la template de jouer
 @main.route('/jouer')
 @login_required
 def jouer():
     user = current_user
     return render_template('game.html',user=user)
 
+# charger la template aide
 @main.route('/aide')
 @login_required
 def aide():
     user = current_user
     return render_template('aide.html',user=user)
 
+# charger la template rejouet, et afficher la liste des parties jouées 
 @main.route('/rejouer')
 @login_required
 def rejouer():
@@ -40,6 +45,7 @@ def rejouer():
     parties = Gameplay.mine(user.id_user)
     return render_template('rejouer.html',user=user,parties=parties)
 
+# Simuler une partie à partir de son id, on recupére tout les coups d'une partie puis on les execute à partir de javascript dans la template
 @main.route('/rejouer/<partie_id>')
 @login_required
 def rejouerpartie(partie_id):
@@ -50,9 +56,9 @@ def rejouerpartie(partie_id):
     return render_template('simulation.html',user=user,coups=coups,partie=partie)
 
 
+# Game Play ajax routes #
 
-
-# Game Play ajax routes
+# fonction appelée à partir d'ajax, elle permet de lancer une partie de jeu, elle est appelée dans logique-de-jeu.js, fonction : start_game_ajax
 @main.route('/backend/play')
 @login_required
 def backend_play():
@@ -68,7 +74,8 @@ def backend_play():
         errorObj, = e.args
         msg = errorObj.message.split('\n')[0].split(': ')[1]
         return {'action':False,'msg':msg}
-    
+
+# fonction appelée à partie d'ajax, elle permet d'enregistrer un coup de jeu, elle est appelée dans logique-de-jeu.js , fonction : coup_ajax
 @main.route('/backend/coup',methods=['POST'])
 @login_required
 def backend_coup():
@@ -77,12 +84,13 @@ def backend_coup():
     idbille = request.form.get('idbille',None)
     depart = request.form.get('depart',None)
     arrivee = request.form.get('arrivee',None)
-    # return {'idpartie':idpartie,'idbille':idbille,'depart':depart,'arrivee':arrivee}
     if not idpartie or not idbille or not depart or not arrivee:
         return {'action':False}
     coup = Gameplay.savecoup(idbille,idpartie,depart,arrivee)
     return {'action':True}
-    
+ 
+
+# fonction appelée à partir d'ajax, elle permet de marquer une partie comme finie, elle est appélée dans logique-de-jeu.js : la fonction : end_game    
 @main.route('/backend/endgame',methods=['POST'])
 @login_required
 def backend_endgame():
