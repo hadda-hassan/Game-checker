@@ -37,6 +37,14 @@ def aide():
     user = current_user
     return render_template('aide.html',user=user)
 
+# charger la template top 3
+@main.route('/top3')
+@login_required
+def topTrois():
+    user = current_user
+    detailsTop = Gameplay.top(user.id_user)
+    return render_template('top.html',user=user,details=detailsTop)
+
 # charger la template rejouet, et afficher la liste des parties jouées 
 @main.route('/rejouer')
 @login_required

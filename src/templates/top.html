@@ -35,29 +35,30 @@
          </div>
          <!-- Fin Menu -->
 
-        <!-- Debut contenu de la page -->
-         <div class="contenu">   
-             <section>
-                  <table width='100%'>
-                     <tr>
-                        <th>Partie ID</th>
-                        <th>Niveau</th>
-                        <th>Score</th>
-                        <th>Action</th>
-                     </tr>
-                     {% for partie in parties %}
-                     <tr>
-                        <td>{{partie.id}}</td>
-                        <td>{{partie.lvl}}</td>
-                        <td>{{partie.score}}</td>
-                        <td><button class="btn " onclick="window.location='/rejouer/'+{{partie.id}}" style="background: green;">Revoir</button></td>
-                     </tr>
-                     {% endfor %}
-                  </table>
-                </section>
-         </div>
-        <!-- Fin contenu de la page -->
 
+        <!-- Debut contenu de la page -->
+         <div class="contenu">
+
+    <h1>Classement des joueurs</h1>
+          <section>
+              <table>
+              <tr>
+                <th class="haut">identifiant</th>
+                <th class="haut">Score</th>
+                <th class="haut">Niveau </th>
+              </tr>
+               {% for detail in details %}
+                     <tr>
+                        <td>{{detail.identifiant}}</td>
+                        <td>{{detail.Scoreperso}}</td>
+                        <td>{{detail.idniveau}}</td>
+                     </tr>
+              {% endfor %}
+
+                  </table>
+          </section>
+
+         </div>
 
       </div>
       <!-- JS -->

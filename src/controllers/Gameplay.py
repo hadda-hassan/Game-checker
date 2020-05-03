@@ -40,6 +40,13 @@ class Gameplay:
             })
         return data
 
+    # cette fonction retourne meilleurs 3 utilisateurs par score
+    @staticmethod
+    def top(id_user):
+        details = Partie.query.filter_by(id_user=id_user,etat=1).order_by("idpartie").all()
+        ################################################################
+        return details
+
     # Cette fonction retourne tout les coups dune partie déjà jouer afin de simuler une partie
     @staticmethod
     def revoire(idpartie):
