@@ -1,0 +1,66 @@
+</html>
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>Solitaire</title>
+      <meta charset="utf-8">
+      <link rel="stylesheet" type="text/css" href="../static/css/styles.css" />
+   </head>
+   <body>
+      <div class="container">
+
+
+        <!-- Debut En tete de la page -->
+        <div class="header">
+         <img src="../static/images/titre.png"/>
+
+         <div class="scores">
+            Salut {{user.identifiant}},
+            <br>
+            Ton meilleur score : <span id="score">{{user.scoreperso}}</span>
+          </div>
+      </div>
+     <!-- Fin En tete de la page -->
+
+         <!-- Debut Menu -->
+         <div class="menu">
+            <ul>
+               <li><button onclick="window.location='/'" class="btn">Acceuil</button></li>
+               <li><button onclick="window.location='/jouer'" class="btn">Jouer</button></li>
+               <li><button onclick="window.location='/rejouer'" class="btn">Vos parties</button></li>
+               <li><button onclick="window.location='/top10'" class="btn">Meilleurs Joueurs</button></li>
+               <li><button onclick="window.location='/aide'" class="btn">Aide</button></li>
+               <li><button onclick="window.location='/auth/logout'" class="btn">Déconnecter</button></li>
+            </ul>
+         </div>
+         <!-- Fin Menu -->
+
+        <!-- Debut contenu de la page -->
+         <div class="contenu">   
+             <section>
+                  <table width='100%'>
+                     <tr>
+                        <th>Partie ID</th>
+                        <th>Niveau</th>
+                        <th>Score</th>
+                        <th>Action</th>
+                     </tr>
+                     {% for partie in parties %}
+                     <tr>
+                        <td>{{partie.id}}</td>
+                        <td>{{partie.lvl}}</td>
+                        <td>{{partie.score}}</td>
+                        <td><button class="btn " onclick="window.location='/rejouer/'+{{partie.id}}" style="background: green;">Revoir</button></td>
+                     </tr>
+                     {% endfor %}
+                  </table>
+                </section>
+         </div>
+        <!-- Fin contenu de la page -->
+
+
+      </div>
+      <!-- JS -->
+      <script type="text/javascript" src="../static/js/aide-design.js"></script>
+   </body>
+</html>

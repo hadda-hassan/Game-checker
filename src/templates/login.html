@@ -1,0 +1,68 @@
+</html>
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>Solitaire</title>
+      <meta charset="utf-8">
+      <link rel="stylesheet" type="text/css" href="../static/css/styles.css" />
+   </head>
+   <body>
+      <div class="container">
+        <!-- Debut En tete de la page -->
+         <div class="header">
+            <img src="../static/images/titre.png"/>
+         </div>
+        <!-- Fin En tete de la page -->
+        <!-- Debut contenu de la page -->
+         <div class="contenu">
+            <div class="auto-form-wrapper">
+                <form action="/auth/check" id="auth-form" method='post'>
+                    <div class="form-group">
+                        <label class="label">Identifiant</label>
+                        <input type="text" class="form-control" placeholder="Votre identifiant" name="identifiant">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="label">mot de passe</label>
+                        <input type="password" class="form-control" placeholder="Votre mot de passe" name="mdp">
+                    </div>
+                    <button class="btn" type="submit">Login</button>
+                  <div class="text-block text-center my-3">
+                    <span class="text-small font-weight-semibold">vous n'êtes pas encore inscrit?</span>
+                    <a href="/auth/register" class="text-black text-small">enregistrement</a>
+                  </div>
+                </form>
+            </div>
+         </div>
+      </div>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
+      <script type="text/javascript" src="../static/js/aide-design.js"></script>
+      <script>
+         $(document).ready(function(){
+
+            // AJAX Authentification 
+
+            $('#auth-form').on('submit',function(e){
+               e.preventDefault();
+               var data = $(this).serializeArray();
+               var action = $(this).attr('action');
+               $.ajax({
+                  url:action,
+                  data,
+                  method:'post',
+                  success:function(response){
+                     if(response.action == true){
+                        alert("Vous avez bien connecté, cliqué sur ok pour continuer.")
+                        window.location = '/'
+                     }else{
+                        alert(response.msg)
+                     }
+                  }
+               });
+               return false;
+            });
+
+         });
+      </script>
+   </body>
+</html>

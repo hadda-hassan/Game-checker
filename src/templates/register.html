@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>Solitaire</title>
+      <meta charset="utf-8">
+      <link rel="stylesheet" type="text/css" href="../static/css/styles.css" />
+   </head>
+   <body>
+      <div class="container">
+
+        <!-- Debut En tete de la page -->
+         <div class="header">
+            <img src="../static/images/titre.png"/>
+         </div>
+        <!-- Fin En tete de la page -->
+
+        <!-- Debut contenu de la page -->
+         <div class="contenu">
+            <div class="auto-form-wrapper">
+                <form action="/auth/register" method="POST">
+                    <div class="form-group">
+                        <label class="label">Identifiant</label>
+                        <input type="text" class="form-control"  placeholder="Identifiant" name="identifiant">
+                    </div>
+     
+                    <div class="form-group">
+                        <label class="label">mot de passe</label>
+                        <input type="password" class="form-control" placeholder="*********" name="mdp">
+                    </div>
+                    <button class="btn" type="submit">Inscrire</button>
+                  <div class="text-block text-center my-3">
+                    <span class="text-small font-weight-semibold">vous avez déjà inscrit ?</span>
+                    <a href="/" class="text-black text-small">Login</a>
+                  </div>
+                </form>
+            </div>
+         </div>
+        <!-- Fin contenu de la page -->
+      </div>
+      <!-- JS -->
+      <script type="text/javascript" src="../static/js/aide-design.js"></script>
+   </body>
+</html>

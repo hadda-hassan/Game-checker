@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>Solitaire</title>
+      <meta charset="utf-8">
+      <link rel="stylesheet" type="text/css" href="../static/css/styles.css" />
+   </head>
+   <body>
+      <div class="container">
+
+        <!-- Debut En tete de la page -->
+         <div class="header">
+            <img src="../static/images/titre.png"/>
+
+            <div class="scores">
+               Salut {{user.identifiant}},
+               <br>
+               Ton meilleur score : <span id="score">{{user.scoreperso}}</span>
+             </div>
+         </div>
+        <!-- Fin En tete de la page -->
+
+        <!-- Debut Menu -->
+        <div class="menu">
+         <ul>
+            <li><button onclick="window.location='/'" class="btn">Acceuil</button></li>
+            <li><button onclick="window.location='/jouer'" class="btn">Jouer</button></li>
+            <li><button onclick="window.location='/rejouer'" class="btn">Vos parties</button></li>
+            <li><button onclick="window.location='/top10'" class="btn">Meilleurs Joueurs</button></li>
+            <li><button onclick="window.location='/aide'" class="btn">Aide</button></li>
+            <li><button onclick="window.location='/auth/logout'" class="btn">Déconnecter</button></li>
+         </ul>
+      </div>
+      <!-- Fin Menu -->
+
+        <!-- Debut contenu de la page -->
+         <div class="contenu">
+
+            <div class="container-left pull-left relative">
+               <div class="options-panel pull-left">
+                <button class="btn" id="commencer">Simuler</button>
+                  <div class="stat-counter relative">
+                     <div>Déplacements:</div>
+                     <div class="counter"><strong id="totalMovements">0</strong></div>
+                  </div>
+                  <div class="stat-counter relative">
+                     <div>Score:</div>
+                     <div class="counter"><strong id="totalPoints">0</strong></div>
+                     <div class="streak absolute" id="streak">x2</div>
+                  </div>
+               </div>
+               <div id="message" class="absolute"></div>
+               <div id="boardContainer" class="pull-left relative"></div>
+            </div>
+         </div>
+        <!-- Fin contenu de la page -->
+        <input type="hidden" id="pos">
+        <input type="hidden" id="">
+      </div>
+      <!-- JS -->
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
+      
+      <script type="text/javascript" src="../static/js/aide-design.js"></script>
+      <script type="text/javascript" src="../static/js/logique-de-jeu.js"></script>
+      <script>
+        var coups = JSON.parse('{{coups|tojson|safe}}');
+        var idniveau = parseInt('{{partie}}');
+        jeuSolitaire.init(idniveau,coups);
+        function sleep(milliseconds = 1000) {
+            const date = Date.now();
+            let currentDate = null;
+            do {
+                currentDate = Date.now();
+            } while (currentDate - date < milliseconds);
+        }
+        $('#commencer').on('click',function(){
+            // Simulation des clicks
+            var len = coups.length;
+            var index = 0;
+            var pos = coups[index];
+
+
+            var interval = window.setInterval(() => {
+                pos = coups[index];
+                $('.s-'+pos.depart).click();
+                $('.s-'+pos.arrivee).click();
+                index++;
+                if(index >= len) clearInterval(interval);
+            }, 1500);
+        });
+    </script>
+   </body>
+</html>
