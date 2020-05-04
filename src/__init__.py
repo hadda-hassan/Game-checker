@@ -6,7 +6,7 @@ from sqlalchemy import create_engine
 # initialisation du projet
 db = SQLAlchemy()
 login_manager = LoginManager()
-ORACLE_URI = 'oracle://HDH0806A:hadda1574@telline.univ-tlse3.fr:1521/etupre'
+ORACLE_URI = 'oracle://HDH0806A:*******@telline.univ-tlse3.fr:1521/etupre'
 engine = create_engine(ORACLE_URI)
 
 def create_app():
